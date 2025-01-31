@@ -19,7 +19,7 @@
         <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <!-- Add UniformGrid for the game board -->
-        <UniformGrid Rows="6" Columns="7" Height="400" Background="Blue" Name="GameGrid"/>
+        <UniformGrid Rows="6" Columns="7" Height="400" Background="Blue" x:Name="GameGrid"/>
     </StackPanel>
 
 </Window>

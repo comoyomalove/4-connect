@@ -18,10 +18,7 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
-        AvaloniaXamlLoader.Load(this); // Replaced InitializeComponent()
-
-        // Initialize the GameGrid by finding it in the XAML
-        GameGrid = this.FindControl<UniformGrid>("GameGrid"); // Kept reference to GameGrid
+        InitializeComponent(); // Re-enabled InitializeComponent()
 
         // Create and add 42 buttons to the UniformGrid
         for (int row = 0; row < 6; row++)
@@ -40,7 +37,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e) // Corrected signature
+    private void Button_Click(object? sender, RoutedEventArgs e) // Made sender nullable
     {
         // Handle button click event
         if (sender is Button button && button.Tag is int column)
