@@ -39,19 +39,27 @@ public partial class MainWindow : Window
 
     private void Button_Click(object? sender, RoutedEventArgs e) // Made sender nullable
     {
-        // Handle button click event
-        if (sender is Button button && button.Tag is int column)
+        if (DataContext is MainWindowViewModel viewModel && !viewModel.IsGameOver)
         {
-            var viewModel = DataContext as MainWindowViewModel;
-            if (viewModel != null)
+            if (sender is Button button && button.Tag is int column)
             {
                 int row = FindLowestEmptyRow(viewModel.GameState.Board, column);
                 if (row != -1)
                 {
                     viewModel.GameState.Board[row, column] = viewModel.GameState.CurrentPlayer;
                     UpdateButtonColor(row, column, viewModel.GameState.CurrentPlayer);
-                    viewModel.GameState.CurrentPlayer = 
-                        viewModel.GameState.CurrentPlayer == Player.Player1 ? Player.Player2 : Player.Player1;
+                    viewModel.CheckForWin(row, column);
+
+                    if (viewModel.IsGameOver)
+                    {
+                        ShowWinMessage(viewModel.WinMessage);
+                        LockBoard();
+                    }
+                    else
+                    {
+                        viewModel.GameState.CurrentPlayer =
+                            viewModel.GameState.CurrentPlayer == Player.Player1 ? Player.Player2 : Player.Player1;
+                    }
                 }
             }
         }
@@ -78,6 +86,36 @@ public partial class MainWindow : Window
             if (button != null)
             {
                 button.Background = player == Player.Player1 ? Brushes.Red : Brushes.Yellow;
+            }
+        }
+    }
+
+    private async void ShowWinMessage(string message)
+    {
+        var dialog = new Window
+        {
+            Title = "Game Over",
+            Width = 300,
+            Height = 150,
+            Content = new TextBlock
+            {
+                Text = message,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                FontSize = 16
+            }
+        };
+
+        await dialog.ShowDialog(this);
+    }
+
+    private void LockBoard()
+    {
+        foreach (var child in GameGrid.Children)
+        {
+            if (child is Button button)
+            {
+                button.IsEnabled = false;
             }
         }
     }
