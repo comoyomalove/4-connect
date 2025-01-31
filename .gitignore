@@ -1,0 +1,63 @@
+# .gitignore for C# projects
+
+# Build Folders
+/bin/
+/obj/
+/out/
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono auto-generated files
+mono_crash.*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code workspace settings
+.vscode/
+
+# Rider IDE files
+.idea/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Visual Studio cache
+.vs/
+
+# Publish directory
+publish/
+
+# Specific to Avalonia
+# Ignore generated XAML files if any
+*.g.cs
+*.g.i.cs
+
+# Additional files to ignore
+*.suo
+*.pdb
+*.cache
+*.vspscc
+*.vssscc
